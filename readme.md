@@ -1,7 +1,7 @@
 # Личный проект «Куплю. Продам» [![Build status][travis-image]][travis-url]
 
 * Студент: [Антон Божанов](https://up.htmlacademy.ru/nodejs/3/user/601025).
-* Наставник: `Неизвестно`.
+* Наставник: [Сергей Рожков](https://htmlacademy.ru/profile/id1069033)..
 
 ---
 
