@@ -1,18 +1,17 @@
 {
   "name": "601025-buy-and-sell-3",
   "version": "1.0.0",
-  "description": "\"Куплю. Продам\"",
+  "description": "Куплю. Продам",
   "main": "./src/service/service.js",
   "scripts": {
     "test": "npm run eslint",
-    "eslint": "eslint --ext .js src/",
-    "start": "node ./src/service/service.js"
+    "eslint": "eslint --ext .js src/"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Inspel/601025-buy-and-sell-3.git"
   },
-  "author": "Антон Божанов",
+  "author": "Антон Боанов",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Inspel/601025-buy-and-sell-3/issues"
@@ -21,5 +20,8 @@
   "devDependencies": {
     "eslint": "6.8.0",
     "eslint-config-htmlacademy": "0.5.2"
+  },
+  "dependencies": {
+    "chalk": "^3.0.0"
   }
 }
