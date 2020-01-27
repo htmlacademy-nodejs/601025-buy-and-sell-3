@@ -1,6 +1,8 @@
 'use strict';
 const fs = require(`fs`);
-
+const {
+  ExitCode
+} = require('../../constants');
 const {
   getRandomInt,
   shuffle
@@ -8,6 +10,7 @@ const {
 
 const DEFAULT_COUNT = 1;
 const FILE_NAME = `mocks.json`;
+const MAX_COUNT = 1000;
 
 const TITLES = [
   `Продам книги Стивена Кинга`,
@@ -56,16 +59,23 @@ const PictureRestrict = {
 
 const getPictureFileName = (pictureNumber) => pictureNumber > 10 ? `item${pictureNumber}.jpg` : `item0${pictureNumber}.jpg`;
 
-const generateOffers = (count) => (
-  Array(count).fill({}).map(() => ({
-    category: [CATEGORIES[getRandomInt(0, CATEGORIES.length - 1)]],
-    description: shuffle(SENTENCES).slice(1, 5).join(` `),
-    picture: getPictureFileName(getRandomInt(PictureRestrict.min, PictureRestrict.max)),
-    title: TITLES[getRandomInt(0, TITLES.length - 1)],
-    type: Object.keys(OfferType)[Math.floor(Math.random() * Object.keys(OfferType).length)],
-    sum: getRandomInt(SumRestrict.min, SumRestrict.max),
-  }))
-);
+const generateOffers = (count) => {
+  if (count > MAX_COUNT) {
+    console.info('Не больше 1000 публикаций');
+    process.exit(ExitCode.error);
+  }
+  return Array(count).fill({})
+    .map(() => ({
+      category: [CATEGORIES[getRandomInt(0, CATEGORIES.length - 1)]],
+      description: shuffle(SENTENCES)
+        .slice(1, 5)
+        .join(` `),
+      picture: getPictureFileName(getRandomInt(PictureRestrict.min, PictureRestrict.max)),
+      title: TITLES[getRandomInt(0, TITLES.length - 1)],
+      type: Object.keys(OfferType)[Math.floor(Math.random() * Object.keys(OfferType).length)],
+      sum: getRandomInt(SumRestrict.min, SumRestrict.max),
+    }))
+};
 
 module.exports = {
   name: `--generate`,
