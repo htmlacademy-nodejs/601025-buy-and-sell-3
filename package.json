@@ -1,7 +1,7 @@
 {
   "name": "601025-buy-and-sell-3",
   "version": "1.0.0",
-  "description": "\"Куплю. Продам\"",
+  "description": "Куплю. Продам",
   "main": "./src/service/service.js",
   "scripts": {
     "test": "npm run eslint",
@@ -21,5 +21,6 @@
   "devDependencies": {
     "eslint": "6.8.0",
     "eslint-config-htmlacademy": "0.5.2"
-  }
+  },
+  "dependencies": {}
 }
