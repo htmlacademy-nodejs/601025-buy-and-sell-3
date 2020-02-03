@@ -9,9 +9,9 @@ const {
   shuffle
 } = require('../utils');
 
-const FILE_SENTENCES_PATH = `./src/data/sentences.txt`;
-const FILE_TITLES_PATH = `./src/data/titles.txt`;
-const FILE_CATEGORIES_PATH = `./src/data/categories.txt`;
+const FILE_SENTENCES_PATH = `./data/sentences.txt`;
+const FILE_TITLES_PATH = `./data/titles.txt`;
+const FILE_CATEGORIES_PATH = `./data/categories.txt`;
 
 const DEFAULT_COUNT = 1;
 const FILE_NAME = `mocks.json`;
