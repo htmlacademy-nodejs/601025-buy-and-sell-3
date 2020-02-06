@@ -37,7 +37,7 @@ const getPictureFileName = (pictureNumber) => pictureNumber > 10 ? `item${pictur
 const readContent = async (filePath) => {
   try {
     const content = await fs.readFile(filePath, `utf8`);
-    return content.split(`\n`);
+    return content.split(`\n`).filter(Boolean);
   } catch (err) {
     console.error(chalk.red(err));
     return [];
