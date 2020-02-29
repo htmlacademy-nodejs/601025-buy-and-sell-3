@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require(`express`);
+const homeRoute = require('./routes/homeRoute');
 const searchRoutes = require(`./routes/search`);
 const myRoutes = require(`./routes/my`);
 const loginRoutes = require(`./routes/login`);
@@ -10,10 +11,7 @@ const registerRoutes = require(`./routes/register`);
 const app = express();
 const port = 8080;
 
-app.get(`/`, (req, res) => {
-  res.send(`/`);
-});
-
+app.use(`/`, homeRoute);
 app.use(`/login`, loginRoutes);
 app.use(`/my`, myRoutes);
 app.use(`/offers`, offersRoutes);
