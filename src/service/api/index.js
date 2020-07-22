@@ -1,11 +1,11 @@
 'use strict';
 
 const {Router} = require(`express`);
-const category = require(`../api/category`);
-const offer = require(`../api/offer`);
-const search = require(`../api/search`);
+const category = require(`./category/category`);
+const offer = require(`./offer/offer`);
+const search = require(`./search/search`);
 
-const getMockData = require(`../lib/get-mock-data`);
+const {getMockData} = require(`../lib/get-mock-data`);
 
 const {
   CategoryService,
