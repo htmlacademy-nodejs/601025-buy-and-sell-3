@@ -1,7 +1,6 @@
 'use strict';
 
 const fs = require(`fs`).promises;
-const chalk = require(`chalk`);
 const {nanoid} = require(`nanoid`);
 const {
   ExitCode,
@@ -11,6 +10,7 @@ const {
   getRandomInt,
   shuffle
 } = require(`../utils`);
+const logger = require(`./index`).apiServiceLogger;
 
 const FILE_SENTENCES_PATH = `./data/sentences.txt`;
 const FILE_TITLES_PATH = `./data/titles.txt`;
@@ -44,7 +44,7 @@ const readContent = async (filePath) => {
     const content = await fs.readFile(filePath, `utf8`);
     return content.split(`\n`).filter(Boolean);
   } catch (err) {
-    console.error(chalk.red(err));
+    logger.error(err);
     return [];
   }
 };
@@ -60,7 +60,7 @@ const generateComments = (count, comments) => (
 
 const generateOffers = (count, titles, categories, sentences, comments) => {
   if (count > MAX_COUNT) {
-    console.info(chalk.red(`Не больше 1000 публикаций`));
+    logger.info(`Не больше 1000 публикаций`);
     process.exit(ExitCode.error);
   }
   return Array(count).fill({}).map(() => ({
@@ -87,9 +87,9 @@ module.exports = {
     const content = JSON.stringify(generateOffers(countOffer, titles, categories, sentences, comments));
     try {
       await fs.writeFile(FILE_NAME, content);
-      console.info(chalk.green(`Operation success. File created.`));
+      logger.info(`Operation success. File created.`);
     } catch (err) {
-      console.error(chalk.red(`Can't write data to file...`));
+      logger.error(`Can't write data to file...`);
     }
   }
 };

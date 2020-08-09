@@ -4,19 +4,10 @@ const request = require(`supertest`);
 const server = require(`../../../express`);
 const {nanoid} = require(`nanoid`);
 
-const port = 8080;
-
 const {HttpCode} = require(`../../../constants`);
 const {getMockData} = require(`../../../service/lib/get-mock-data`);
 
 let mocks = [];
-
-server.listen(port, () => {
-  console.log(`server start on ${port}`);
-})
-  .on(`error`, (err) => {
-    console.error(`Server can't start. Error: ${err}`);
-  });
 
 describe(`Тестирование API по маршруту Offers`, () => {
   beforeAll(async () => {

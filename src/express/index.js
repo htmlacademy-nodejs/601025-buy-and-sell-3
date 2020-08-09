@@ -4,6 +4,7 @@ const path = require(`path`);
 const express = require(`express`);
 const apiRoutes = require(`../service/api`);
 const {HttpCode, API_PREFIX} = require(`../constants`);
+const {getLogger} = require(`../logger`);
 
 const STATIC_DIR = path.join(__dirname, `./../../markup`);
 
@@ -16,6 +17,10 @@ const {
   registerRoutes,
   searchRoutes,
 } = require(`./routes/index`);
+
+const logger = getLogger({
+  name: `pino-express`,
+});
 
 const app = express();
 const port = 8080;
@@ -33,7 +38,7 @@ app.use((req, res) => {
       'statusCode': 404,
     }
   });
-  console.error(`Wrong route`);
+  logger.debug(`Wrong route`);
 });
 
 app.use(express.static(STATIC_DIR));
@@ -49,10 +54,10 @@ app.use(`/search`, searchRoutes);
 app.use(`/errors`, errorsRoutes);
 
 app.listen(port, () => {
-  console.log(`server start on ${port}`);
+  logger.info(`server start on ${port}`);
 })
   .on(`error`, (err) => {
-    console.error(`Server can't start. Error: ${err}`);
+    logger.error(`Server can't start. Error: ${err}`);
   });
 
 module.exports = app;

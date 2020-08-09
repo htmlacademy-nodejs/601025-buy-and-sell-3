@@ -31,9 +31,6 @@ module.exports = (app, offerService, commentService) => {
 
   route.post(`/`, offerValidator, (req, res) => {
     const offer = offerService.create(req.body);
-    // const offer = req.body;
-
-    // console.log(res)
 
     return res.status(HttpCode.CREATED)
       .json(offer);

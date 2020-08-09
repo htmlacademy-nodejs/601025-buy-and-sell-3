@@ -4,7 +4,6 @@ const {Router} = require(`express`);
 const category = require(`./category/category`);
 const offer = require(`./offer/offer`);
 const search = require(`./search/search`);
-
 const {getMockData} = require(`../lib/get-mock-data`);
 
 const {
