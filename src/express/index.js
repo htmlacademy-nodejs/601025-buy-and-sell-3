@@ -22,9 +22,12 @@ const logger = getLogger({
   name: `pino-express`,
 });
 
+const expressPino = require(`express-pino-logger`)({logger});
+
 const app = express();
 const port = 8080;
 
+app.use(expressPino);
 app.use(express.json());
 app.use(API_PREFIX, apiRoutes);
 

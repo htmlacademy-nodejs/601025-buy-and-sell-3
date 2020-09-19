@@ -1,10 +1,16 @@
 'use strict';
 
 const defaultLoggerOptions = {
-  level: process.env.LOG_LEVEL || `debug`
+  name: `logger`,
+  level: process.env.LOG_LEVEL || `info`,
 };
 
-const logger = require(`pino`)(defaultLoggerOptions);
+const pino = require(`pino`);
+
+const logger = pino(defaultLoggerOptions, pino.destination({
+  dest: `src/service/logs/logs.log`,
+  sync: false,
+}));
 
 module.exports = {
   logger,

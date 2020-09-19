@@ -6,7 +6,8 @@
   "scripts": {
     "test": "npm run eslint",
     "eslint": "eslint --ext .js src/",
-    "start": "node ./src/service/service.js",
+    "start": "LOG_LEVEL=error node ./src/service/service.js | ./node_modules/.bin/pino-pretty",
+    "start::debug": "LOG_LEVEL=debug node ./src/service/service.js | ./node_modules/.bin/pino-pretty",
     "server": "nodemon ./src/service/service.js --server 3000",
     "start-front-server": "nodemon ./src/express/index.js",
     "generate": "node ./src/service/service.js --generate 10"
@@ -26,6 +27,7 @@
     "eslint-config-htmlacademy": "0.5.2",
     "jest": "26.1.0",
     "nodemon": "2.0.2",
+    "pino-pretty": "4.2.1",
     "supertest": "4.0.2"
   },
   "dependencies": {
