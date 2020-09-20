@@ -41,8 +41,8 @@ module.exports = (app, offerService, commentService) => {
     const existOffer = offerService.findOne(offerId);
 
     if (!existOffer) {
-      res.status(HttpCode.NOT_FOUND);
-      return res.send(`Not found with ${offerId}`);
+      res.status(HttpCode.NOT_FOUND)
+        .send(`Not found with ${offerId}`);
     }
 
     const updatedOffer = offerService.update(offerId, req.body);

@@ -45,11 +45,13 @@ describe(`Тестирование API по маршруту Offers`, () => {
   });
 
   test(`POST /api/offers`, async () => {
+    const offerId = nanoid(6);
+    const commentId = nanoid(6);
     const res = await request(server)
       .post(`/api/offers`)
       .send(
           {
-            id: nanoid(6),
+            id: offerId,
             category: [
               `Посуда`
             ],
@@ -60,7 +62,7 @@ describe(`Тестирование API по маршруту Offers`, () => {
             sum: 12225,
             comments: [
               {
-                id: nanoid(6),
+                id: commentId,
                 text: `Jest comment 1`
               }
             ]
@@ -68,32 +70,45 @@ describe(`Тестирование API по маршруту Offers`, () => {
       );
     expect(res.statusCode).toBe(HttpCode.CREATED);
     expect(res.body).toBe(res.body);
+
+    const createdOfferRes = await request(server).get(`/api/offers/${offerId}`);
+    expect(createdOfferRes.statusCode).toBe(HttpCode.OK);
+    expect(createdOfferRes.body).toHaveProperty(`id`);
+    expect(createdOfferRes.body).toHaveProperty(`title`);
   });
 
   test(`PUT /api/offers/:offerId expected to have HttpCode 200`, async () => {
+    const commentId = nanoid(6);
+    const offerPayload = {
+      id: mocks[0].id,
+      category: [
+        `Посуда`
+      ],
+      description: `Jest test description`,
+      picture: `item08.jpg`,
+      title: `Jest test title`,
+      type: `offer`,
+      sum: 12225,
+      comments: [
+        {
+          id: commentId,
+          text: `Jest comment 1`
+        }
+      ]
+    };
     const res = await request(server)
       .put(`/api/offers/${mocks[0].id}`)
-      .send(
-          {
-            id: nanoid(6),
-            category: [
-              `Посуда`
-            ],
-            description: `Jest test description`,
-            picture: `item08.jpg`,
-            title: `Jest test title`,
-            type: `offer`,
-            sum: 12225,
-            comments: [
-              {
-                id: nanoid(6),
-                text: `Jest comment 1`
-              }
-            ]
-          }
-      );
+      .send(offerPayload);
     expect(res.statusCode).toBe(HttpCode.OK);
 
+    const editedOfferRes = await request(server).get(`/api/offers/${mocks[0].id}`);
+    expect(editedOfferRes.statusCode).toBe(HttpCode.OK);
+    expect(editedOfferRes.body.comments).toContainEqual({
+      id: commentId,
+      text: `Jest comment 1`
+    });
+    expect(editedOfferRes.body).toHaveProperty(`title`);
+    expect(editedOfferRes.body.title).toBe(`Jest test title`);
   });
 
   test(`PUT /api/offers/:offerId expected to have HttpCode 404`, async () => {
