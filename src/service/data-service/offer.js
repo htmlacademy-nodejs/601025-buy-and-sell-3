@@ -39,7 +39,8 @@ class OfferService {
     const oldOffer = this._offers
       .find((item) => item.id === id);
 
-    return Object.assign(oldOffer, offer);
+    const result = Object.assign(oldOffer, offer);
+    return result;
   }
 
 }
