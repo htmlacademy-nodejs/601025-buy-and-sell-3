@@ -1,10 +1,10 @@
 'use strict';
 
 const {Router} = require(`express`);
-const {HttpCode} = require(`../../constants`);
-const offerValidator = require(`../middlewares/offer-validator`);
-const offerExist = require(`../middlewares/offer-exists`);
-const commentValidator = require(`../middlewares/comment-validator`);
+const {HttpCode} = require(`../../../constants`);
+const offerValidator = require(`../../middlewares/offer-validator`);
+const offerExist = require(`../../middlewares/offer-exists`);
+const commentValidator = require(`../../middlewares/comment-validator`);
 
 const route = new Router();
 
@@ -36,12 +36,12 @@ module.exports = (app, offerService, commentService) => {
       .json(offer);
   });
 
-  route.put(`/:offerId`, offerValidator, (req, res) => {
+  route.put(`/:offerId`, (req, res) => {
     const {offerId} = req.params;
     const existOffer = offerService.findOne(offerId);
 
     if (!existOffer) {
-      return res.status(HttpCode.NOT_FOUND)
+      res.status(HttpCode.NOT_FOUND)
         .send(`Not found with ${offerId}`);
     }
 
